@@ -291,6 +291,11 @@ public:
       SetChosenItemIdx(-1);
       SetPrefix(0);
       mCanMultiCheck = false;
+      // Drop any selection function too: IGraphics reuses one shared menu for
+      // PromptUserInput and context menus, and platform code executes the
+      // function whenever one is set -- a function surviving Clear() would
+      // fire again from a later, unrelated menu.
+      SetFunction(nullptr);
     }
     
     mMenuItems.Empty(true);
